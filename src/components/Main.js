@@ -6,17 +6,24 @@ import React from 'react';
 let yeomanImage = require('../images/yeoman.png');
 
 class AppComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {count: props.initialCount};
+    this.tick = this.tick.bind(this);
+  }
+  tick() {
+    this.setState({count: this.state.count + 1});
+  }
   render() {
     return (
-      <div className="index">
-        <img src={yeomanImage} alt="Yeoman Generator" />
-        <div className="notice">Please edit <code>src/components/Main.js</code> to get started!</div>
+      <div onClick={this.tick}>
+        Clicks: {this.state.count}
       </div>
     );
   }
 }
 
-AppComponent.defaultProps = {
-};
+AppComponent.propTypes = { initialCount: React.PropTypes.number };
+AppComponent.defaultProps = { initialCount: 0 };
 
 export default AppComponent;
